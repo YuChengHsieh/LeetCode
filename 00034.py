@@ -40,7 +40,26 @@ class Solution:
             span += 1
         
         return [start,end]
-    
+
+class Solution:
+    def searchRange(self, nums: list[int], target: int) -> list[int]:
+        if len(nums) == 0: return [-1,-1]
+        # Binary Search
+        # find start position
+        start = 0; end = len(nums)-1
+        while start <= end:
+            mid = start+(end-start)//2
+            if(nums[mid] < target): start = mid+1
+            else: end = mid-1
+        if start >= len(nums) or nums[start] != target: return [-1,-1]
+        # find end position
+        ans_start = start
+        start = 0; end = len(nums)-1
+        while start <= end:
+            mid = start+(end-start)//2
+            if(nums[mid] <= target): start = mid+1
+            else: end = mid-1
+        return [ans_start,end]
 if __name__ == '__main__':
     a = Solution()
     print(a.searchRange([5,7,7,8,8,10],8))
