@@ -1,28 +1,25 @@
 class Solution:
     def divide(self, dividend: int, divisor: int) -> int:
+        ans = 0
+        neg = False
+        if dividend < 0:
+            dividend = abs(dividend)
+            neg = not neg
+        if divisor < 0:
+            divisor = abs(divisor)
+            neg = not neg
 
-        quotient = 0
-        sign = -1 if (dividend < 0 and divisor > 0) or (dividend > 0 and divisor < 0) else 1
-        dividend,divisor = abs(dividend),abs(divisor)
-        
-        if sign == 1 and dividend >= 1<<31 and divisor == 1:
-            return (1<<31) -1
-        elif sign == -1 and dividend < -1 << 31 and divisor == 1:
-            return -1 << 31
-        
         while dividend >= divisor:
-            tmp_quotient = divisor
+            quotient = divisor
             shift = 1
-            
-            while tmp_quotient << 1 <= dividend:
-                tmp_quotient <<= 1
+            while dividend > quotient << 1:
+                quotient <<= 1
                 shift <<= 1
-            
-            dividend -= tmp_quotient
-            quotient += shift
-            
-        return quotient*sign
+            dividend -= quotient
+            ans += shift
 
+        if ans > (1 << 31)-1 and not neg: return (1 << 31)-1
+        return -ans if neg else ans
 if __name__ == '__main__':
     a = Solution()
     print(a.divide(10,3))
