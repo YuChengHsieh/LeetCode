@@ -37,6 +37,21 @@ class Solution:
         
         return ret_list
 
+class Solution:
+    def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
+        dict_ = {}
+        for s in strs:
+            cnt = [0]*26
+            for ch in s:
+                cnt[ord(ch)-ord('a')] += 1
+            if tuple(cnt) not in dict_: dict_[tuple(cnt)] = []
+            dict_[tuple(cnt)].append(s)
+        
+        ans = []
+        for val in dict_.values():
+            ans.append(val)
+        return ans
+
 if __name__ == '__main__':
     a = Solution()
     print(a.groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
