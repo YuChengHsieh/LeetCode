@@ -14,3 +14,11 @@ class Solution:
             else:
                 i += 1
         return [ans] + [n*(n+1)//2-(sum(nums)-ans)]
+
+# use sum
+class Solution:
+    def findErrorNums(self, nums: list[int]) -> list[int]:
+        n = len(nums)
+        miss_val = n*(n+1)//2 - sum(set(nums))
+        duplicated_num = sum(nums) + miss_val - n*(n+1)//2 
+        return [duplicated_num, miss_val]
