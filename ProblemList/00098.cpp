@@ -68,6 +68,20 @@ public:
     }
 };
 
+class Solution {
+private:
+    bool traverse(TreeNode* cur, long long max_val, long long min_val){
+        if(cur == nullptr) return true;
+        if(cur -> val > min_val && cur -> val < max_val)
+            return traverse(cur->left, min((long long)cur->val, max_val), min_val) & traverse(cur->right, max_val, max(min_val,(long long)cur->val));
+        else return false;
+    }
+public:
+    bool isValidBST(TreeNode* root) {
+        return traverse(root->left, root -> val, (long long)INT_MIN-1) & traverse(root->right,(long long)INT_MAX+1, root->val);
+    }
+};
+
 int main(){
     // TreeNode* left_2 = new TreeNode(3);
     // TreeNode* right_2 = new TreeNode(6);
