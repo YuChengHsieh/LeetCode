@@ -14,6 +14,22 @@ struct TreeNode {
 };
 
 class Solution {
+private:
+    int ans = 0;
+    void traverse(TreeNode* cur, string s){
+        s += cur -> val + '0';
+        if(cur -> left == nullptr && cur -> right == nullptr) ans += stoi(s);
+        if(cur -> left != nullptr) traverse(cur -> left, s);
+        if(cur -> right != nullptr) traverse(cur -> right, s);
+    }
+public:
+    int sumNumbers(TreeNode* root) {
+        traverse(root,"");
+        return ans;
+    }
+};
+
+class Solution {
 public:
     int mySumNumbers(TreeNode* cur,  vector<int> vec){
         int sum = 0;
