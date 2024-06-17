@@ -1,6 +1,23 @@
 #include <unordered_map>
 #include <vector>
+#include <unordered_set>
 using namespace std;
+
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        unordered_set<int> check;
+        int cur = 0, prev = 0;
+        for(auto& num: nums){
+            cur += num;
+            if(check.count(cur%k)) return true;
+            check.insert(prev%k);
+            prev = cur;
+        }
+        return false;
+    }
+};
+
 
 class Solution {
 public:
