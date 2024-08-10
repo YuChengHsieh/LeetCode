@@ -1,6 +1,33 @@
 #include <vector>
 #include <unordered_set>
 using namespace std;
+
+class Solution {
+private:
+    void dfs(int curn, int base, vector<vector<int>>& res, vector<vector<int>>& graph){
+        for(const auto &nextn: graph[curn]){
+            if(res[nextn].size() == 0 || res[nextn].back() != base){
+                res[nextn].push_back(base);
+                dfs(nextn, base, res, graph);
+            } 
+        }
+        return;
+    }
+public:
+    vector<vector<int>> getAncestors(int n, vector<vector<int>>& edges) {
+        vector<vector<int>> graph(n);
+        vector<vector<int>> res(n);
+
+        for(const auto & edge: edges){
+            graph[edge[0]].push_back(edge[1]);
+
+        }
+
+        for(int i=0; i<n; i++) dfs(i,i,res,graph);
+        return res;
+    }
+};
+
 class Solution {
 private:
     vector<vector<int>> ans;
