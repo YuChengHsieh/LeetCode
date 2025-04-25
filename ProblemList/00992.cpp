@@ -59,3 +59,26 @@ public:
         return find(nums,k) - find(nums,k-1);
     }
 };
+
+// count more 
+class Solution {
+    private:
+        int find(vector<int>& nums, int k){
+            int left = 0, ans = 0;
+            unordered_map<int,int> mp;
+            for(int right = 0; right < nums.size(); right++){
+                mp[nums[right]] += 1; 
+                while(mp.size() >= k){
+                    mp[nums[left]] -= 1;
+                    if(mp[nums[left]] == 0) mp.erase(nums[left]);
+                    left++;
+                }
+                ans += left;
+            }
+            return ans;
+        }
+    public:
+        int subarraysWithKDistinct(vector<int>& nums, int k) {
+            return find(nums,k) - find(nums,k+1);
+        }
+    };
